@@ -1,0 +1,14 @@
+#python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. video_server.proto
+syntax = 'proto3';
+
+service FrameService {
+  rpc SendFrame(FrameInfo) returns (FrameResponse) {}
+}
+
+message FrameInfo {
+  bytes image = 1;
+}
+
+message FrameResponse {
+  string reply = 1;
+}
