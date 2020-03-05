@@ -14,8 +14,8 @@ def SendFrame(self, request, context):
 
 def main():
     channel = grpc.insecure_channel('localhost:50051')
-    stub = imageTest_pb2_grpc.ImageTestStub(channel)
-    stub.FrameDump(SendFrame())
+    stub = video_server_pb2_grpc.FrameServiceStub(channel)
+    stub.SendFrame(None)
 
 if __name__ == '__main__':
     main()

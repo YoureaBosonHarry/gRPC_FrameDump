@@ -14,7 +14,7 @@ class FrameServiceStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.SendFrame = channel.unary_unary(
+    self.SendFrame = channel.stream_stream(
         '/FrameService/SendFrame',
         request_serializer=video__server__pb2.FrameInfo.SerializeToString,
         response_deserializer=video__server__pb2.FrameResponse.FromString,
@@ -25,7 +25,7 @@ class FrameServiceServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
-  def SendFrame(self, request, context):
+  def SendFrame(self, request_iterator, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -35,7 +35,7 @@ class FrameServiceServicer(object):
 
 def add_FrameServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'SendFrame': grpc.unary_unary_rpc_method_handler(
+      'SendFrame': grpc.stream_stream_rpc_method_handler(
           servicer.SendFrame,
           request_deserializer=video__server__pb2.FrameInfo.FromString,
           response_serializer=video__server__pb2.FrameResponse.SerializeToString,

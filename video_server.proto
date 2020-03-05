@@ -1,8 +1,8 @@
-#python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. video_server.proto
+// python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. video_server.proto
 syntax = 'proto3';
 
 service FrameService {
-  rpc SendFrame(FrameInfo) returns (FrameResponse) {}
+  rpc SendFrame(stream FrameInfo) returns (stream FrameResponse) {}
 }
 
 message FrameInfo {
