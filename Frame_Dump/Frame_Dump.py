@@ -5,17 +5,17 @@ from concurrent import futures
 import os
 import time
 
-class FrameDump(video_server_pb2_grpc.FrameServiceServicer):
+class Frame_Dump(video_server_pb2_grpc.FrameServiceServicer):
     def __init__(self):
         self.frames = []
 
-    def DumpFrame(self, request, context):
+    def dump_frame(self, request, context):
        for i in request:
            yield video_server_pb2.FrameResponse(reply="OK")
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    video_server_pb2_grpc.add_FrameServiceServicer_to_server(FrameDump(), server)
+    video_server_pb2_grpc.add_FrameServiceServicer_to_server(Frame_Dump(), server)
     server.add_insecure_port('[::]:50051')
     print("Starting Server On Port: 50051")
     server.start()
