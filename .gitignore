@@ -1,0 +1,8 @@
+./Stream_Client/video_server_pb2.py
+./Stream_Client/video_server_pb2_grpc.py
+./Stream_Client/__pycache__/
+./Frame_Dump/video_server_pb2.py
+./Frame_Dump/video_server_pb2_grpc.py
+./Frame_Dump/__pycache__/
+./__pycache__/
+

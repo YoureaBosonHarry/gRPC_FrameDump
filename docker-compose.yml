@@ -1,0 +1,37 @@
+# Frame Dump Server
+version: '3'
+services:
+  frame_dump_server:
+    image: youreabosonharry/frame_dump:0.1.0
+    environment:
+      - HOST=0.0.0.0
+      - PORT=50051
+    networks:
+      - frame_dump_net
+    ports:
+      - "50051:50051"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "10"
+  stream_client:
+    image: youreabosonharry/stream_client:0.1.0
+    environment:
+      - HOST=frame_dump_server
+      - POST=50051
+    networks:
+      - frame_dump_net
+    depends_on:
+      - frame_dump_server
+    restart: always
+    devices:
+      - /dev/video0:/dev/video0
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "10"
+networks:
+  frame_dump_net:
