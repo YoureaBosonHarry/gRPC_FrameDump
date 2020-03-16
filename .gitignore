@@ -4,5 +4,8 @@
 ./Frame_Dump/video_server_pb2.py
 ./Frame_Dump/video_server_pb2_grpc.py
 ./Frame_Dump/__pycache__/
+./Motion_Detector/video_server_pb2.py
+./Motion_Detector/video_server_pb2_grpc.py
+./Motion_Detector/__pycache__/
 ./__pycache__/
 
