@@ -21,8 +21,8 @@ class FrameServiceStub(object):
         )
     self.ReturnFrame = channel.unary_unary(
         '/FrameService/ReturnFrame',
-        request_serializer=video__server__pb2.FrameInfo.SerializeToString,
-        response_deserializer=video__server__pb2.FrameResponse.FromString,
+        request_serializer=video__server__pb2.FrameResponse.SerializeToString,
+        response_deserializer=video__server__pb2.FrameInfo.FromString,
         )
 
 
@@ -54,8 +54,8 @@ def add_FrameServiceServicer_to_server(servicer, server):
       ),
       'ReturnFrame': grpc.unary_unary_rpc_method_handler(
           servicer.ReturnFrame,
-          request_deserializer=video__server__pb2.FrameInfo.FromString,
-          response_serializer=video__server__pb2.FrameResponse.SerializeToString,
+          request_deserializer=video__server__pb2.FrameResponse.FromString,
+          response_serializer=video__server__pb2.FrameInfo.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

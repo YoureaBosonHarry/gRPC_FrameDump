@@ -3,6 +3,7 @@ syntax = 'proto3';
 
 service FrameService {
   rpc DumpFrame(stream FrameInfo) returns (FrameResponse) {}
+  rpc ReturnFrame(FrameResponse) returns (FrameInfo) {}
 }
 
 message FrameInfo {

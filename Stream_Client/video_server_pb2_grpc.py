@@ -19,6 +19,11 @@ class FrameServiceStub(object):
         request_serializer=video__server__pb2.FrameInfo.SerializeToString,
         response_deserializer=video__server__pb2.FrameResponse.FromString,
         )
+    self.ReturnFrame = channel.unary_unary(
+        '/FrameService/ReturnFrame',
+        request_serializer=video__server__pb2.FrameResponse.SerializeToString,
+        response_deserializer=video__server__pb2.FrameInfo.FromString,
+        )
 
 
 class FrameServiceServicer(object):
@@ -32,6 +37,13 @@ class FrameServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def ReturnFrame(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_FrameServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -39,6 +51,11 @@ def add_FrameServiceServicer_to_server(servicer, server):
           servicer.DumpFrame,
           request_deserializer=video__server__pb2.FrameInfo.FromString,
           response_serializer=video__server__pb2.FrameResponse.SerializeToString,
+      ),
+      'ReturnFrame': grpc.unary_unary_rpc_method_handler(
+          servicer.ReturnFrame,
+          request_deserializer=video__server__pb2.FrameResponse.FromString,
+          response_serializer=video__server__pb2.FrameInfo.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
