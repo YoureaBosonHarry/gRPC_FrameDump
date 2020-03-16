@@ -4,7 +4,6 @@ services:
   frame_dump_server:
     image: youreabosonharry/frame_dump:0.1.0
     environment:
-      - HOST=0.0.0.0
       - PORT=50051
     networks:
       - frame_dump_net
@@ -20,7 +19,7 @@ services:
     image: youreabosonharry/stream_client:0.1.0
     environment:
       - HOST=frame_dump_server
-      - POST=50051
+      - PORT=50051
     networks:
       - frame_dump_net
     depends_on:
@@ -28,6 +27,22 @@ services:
     restart: always
     devices:
       - /dev/video0:/dev/video0
+    privileged: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "10"
+  motion_detector:
+    image: youreabosonharry/motion_detector:0.1.0
+    environment:
+      - HOST=frame_dump_server
+      - PORT=50051
+    networks:
+      - frame_dump_net
+    depends_on:
+      - frame_dump_server 
+    restart: always
     logging:
       driver: "json-file"
       options:

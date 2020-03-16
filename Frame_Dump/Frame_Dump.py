@@ -7,7 +7,6 @@ import video_server_pb2
 import video_server_pb2_grpc
 
 # Environment Variables
-HOST = os.environ.get("HOST")
 PORT = os.environ.get("PORT")
 
 logging.basicConfig(format='[%(levelname)s]: %(message)s', level=logging.DEBUG)
@@ -19,7 +18,7 @@ class FrameDumpServicer(video_server_pb2_grpc.FrameServiceServicer):
 
     def DumpFrame(self, request_iterator, context):
        for i in request_iterator:
-           self.push_to_dump(i)
+           self.push_to_dump(i.image)
        return video_server_pb2.FrameResponse(reply="OK")
 
     def push_to_dump(self, frame):
@@ -27,10 +26,15 @@ class FrameDumpServicer(video_server_pb2_grpc.FrameServiceServicer):
         if len(self.frames) >= self.max_frames:
             self.frames.pop(0)
 
+    def ReturnFrame(self, request, context):
+        print(request.reply)
+        if self.frames:
+            return video_server_pb2.FrameInfo(image=self.frames[-1])
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     video_server_pb2_grpc.add_FrameServiceServicer_to_server(FrameDumpServicer(50), server)
-    server.add_insecure_port(f'{HOST}:{PORT}')
+    server.add_insecure_port(f'0.0.0.0:{PORT}')
     logging.info(f"Starting Server On Port {PORT}")
     server.start()
     try:

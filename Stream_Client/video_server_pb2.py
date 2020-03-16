@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x12video_server.proto\"\x1a\n\tFrameInfo\x12\r\n\x05image\x18\x01 \x01(\x0c\"\x1e\n\rFrameResponse\x12\r\n\x05reply\x18\x01 \x01(\t2;\n\x0c\x46rameService\x12+\n\tDumpFrame\x12\n.FrameInfo\x1a\x0e.FrameResponse\"\x00(\x01\x62\x06proto3'
+  serialized_pb=b'\n\x12video_server.proto\"\x1a\n\tFrameInfo\x12\r\n\x05image\x18\x01 \x01(\x0c\"\x1e\n\rFrameResponse\x12\r\n\x05reply\x18\x01 \x01(\t2h\n\x0c\x46rameService\x12+\n\tDumpFrame\x12\n.FrameInfo\x1a\x0e.FrameResponse\"\x00(\x01\x12+\n\x0bReturnFrame\x12\x0e.FrameResponse\x1a\n.FrameInfo\"\x00\x62\x06proto3'
 )
 
 
@@ -112,7 +112,7 @@ _FRAMESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=82,
-  serialized_end=141,
+  serialized_end=186,
   methods=[
   _descriptor.MethodDescriptor(
     name='DumpFrame',
@@ -121,6 +121,15 @@ _FRAMESERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_FRAMEINFO,
     output_type=_FRAMERESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ReturnFrame',
+    full_name='FrameService.ReturnFrame',
+    index=1,
+    containing_service=None,
+    input_type=_FRAMERESPONSE,
+    output_type=_FRAMEINFO,
     serialized_options=None,
   ),
 ])

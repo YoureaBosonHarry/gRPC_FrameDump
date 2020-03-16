@@ -12,7 +12,7 @@ class FrameMotionDetector():
             return
         cv2.accumulateWeighted(image, self.background, self.accumulated_weight)
 
-    def detect(self, image, threshold_val):
+    def detect(self, image, threshold_val=25):
         delta = cv2.absdiff(self.background.astype("uint8"), image)
         thresh = cv2.threshold(delta, threshold_val, 255, cv2.THRESH_BINARY)[1]
         thresh = cv2.erode(thresh, None, iterations=2)
